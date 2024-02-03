@@ -9,22 +9,37 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../../config/firebaseConfig/firebaseMethods";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function LogIn() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    //  signUpUser({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    //   type: 'admin',
+    // }).then((res)=>{
+    //   console.log(res);
+    // }).catch((err)=>{
+    //   console.log(err);
+    // })
+
     loginUser({
         email: data.get('email'),
         password: data.get('password'),
       }).then((res) => {
         console.log(res.type);
         if (res.type === 'student') {
-          navigate('/student')
+          navigate('/studentDashboard')
         } else {
-          navigate('/admin')
+          navigate('/adminDashboard')
         }
       }).catch((err) => {
         console.log(err);

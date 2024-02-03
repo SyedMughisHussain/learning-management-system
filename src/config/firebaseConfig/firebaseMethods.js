@@ -18,8 +18,6 @@ import {
   } from "firebase/firestore";
   
   const auth = getAuth(app);
-  
-  //initialize firestore database
   const db = getFirestore(app);
   
   // register user

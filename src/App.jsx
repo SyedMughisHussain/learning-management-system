@@ -1,11 +1,10 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import SignIn from './screens/login/Login';
+import RouterConfig from './config/routerConfig/RouterConfig';
 
 
 const App = () => {
   return (
-    <SignIn />
+    <RouterConfig />
   )
 }
 
