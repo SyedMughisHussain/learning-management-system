@@ -1,8 +1,14 @@
 import React from 'react'
+import DemoCard from '../../../components/Card'
 
 const AllCourses = () => {
   return (
-    <div>AllCourses</div>
+    <>
+    <DemoCard />
+    <DemoCard />
+    <DemoCard />
+    <DemoCard />
+    </>
   )
 }
 

@@ -7,12 +7,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { sendData } from "../../../config/firebaseConfig/firebaseMethods";
+import { Collapse } from "@mui/material";
+import AlertBox from "../../../components/Alert";
 
 const defaultTheme = createTheme();
 
 export default function LogIn() {
+  const [open, setOpen] = React.useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setOpen(true);
     const data = new FormData(event.currentTarget);
     console.log({
       TeacherName: data.get("teacherName"),
@@ -29,6 +34,11 @@ export default function LogIn() {
     )
       .then((res) => {
         console.log("Added Data Successfully");
+        setOpen(false);
+        const teacherName = document.querySelector("#teacherName");
+        const courseName = document.querySelector("#courseName");
+        teacherName.value = "";
+        courseName.value = "";
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +47,9 @@ export default function LogIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Collapse in={open}>
+        <AlertBox message={"New Course Added Successfully."} />
+      </Collapse>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -58,6 +71,7 @@ export default function LogIn() {
           >
             <TextField
               margin="normal"
+              id="teacherName"
               required
               fullWidth
               name="teacherName"
@@ -65,6 +79,7 @@ export default function LogIn() {
               autoFocus
             />
             <TextField
+              id="courseName"
               margin="normal"
               required
               fullWidth
