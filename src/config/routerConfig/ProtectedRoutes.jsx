@@ -28,7 +28,7 @@ function ProtectedRoutes(props) {
     <>
       {loader ? (
         <Box
-          sx={{ display: "flex", justifyContent: "center", marginTop: "30%" }}
+          sx={{ display: "flex", justifyContent: "center", marginTop: "15%" }}
         >
           <Loader />
         </Box>

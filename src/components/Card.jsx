@@ -5,12 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function DemoCard() {
+export default function DemoCard(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, marginTop: "20px", marginLeft: "20px" }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {props.courseName}
         </Typography>
       </CardContent>
       <CardActions>
