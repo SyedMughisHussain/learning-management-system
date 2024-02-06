@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Admission = () => {
   return (
@@ -6,9 +7,10 @@ const Admission = () => {
       <form className="d-flex justify-content-center w-100">
         <div className="w-50">
           <label htmlFor="fullName">
-            Enter Full Name
+             Full Name
             <br />
             <input
+            id="fullName"
               type="text"
               required
               placeholder="Full Name"
@@ -20,13 +22,14 @@ const Admission = () => {
           </label>
           <br />
           <br />
-          <label htmlFor="fullName">
-            Enter Full Name
+          <label htmlFor="email">
+            Email
             <br />
             <input
-              type="text"
+              type="email"
+              id="email"
               required
-              placeholder="Full Name"
+              placeholder="Email"
               style={{
                 width: "400px",
               }}
@@ -35,13 +38,14 @@ const Admission = () => {
           </label>
           <br />
           <br />
-          <label htmlFor="fullName">
-            Enter Full Name
+          <label htmlFor="password">
+            Password
             <br />
             <input
-              type="text"
+              id="password"
+              type="password"
               required
-              placeholder="Full Name"
+              placeholder="Password"
               style={{
                 width: "400px",
               }}
@@ -50,13 +54,14 @@ const Admission = () => {
           </label>
           <br />
           <br />
-          <label htmlFor="fullName">
-            Enter Full Name
+          <label htmlFor="address">
+            Address
             <br />
             <input
               type="text"
+              id="address"
               required
-              placeholder="Full Name"
+              placeholder="Address"
               style={{
                 width: "400px",
               }}
@@ -83,22 +88,52 @@ const Admission = () => {
               padding: "5px",
               width: "1040px",
               color: "white",
-              fontSize: "18px", 
+              fontSize: "18px",
               border: "none",
-              backgroundColor: "#0D6DB7"
+              backgroundColor: "#0D6DB7",
             }}
           >
             Register
           </button>
         </div>
         <div>
-          <label htmlFor="fullName">
-            Enter Full Name
+          <label htmlFor="course">
+            Select Course
+            <br />
+            <select className="p-2" style={{
+              width: "400px"
+            }} id="course">
+              <option value="volvo">Select Course</option>
+              <option value="saab">Full Stack Web Development</option>
+              <option value="opel">Mobile App Development</option>
+              <option value="audi">Artificial Intelligence</option>
+              <option value="audi">Graphic Designing</option>
+              <option value="audi">Laptop Repairing</option>
+            </select>
+          </label>
+          <br />
+          <br />
+          <label htmlFor="gender">
+              Select Gender
+            <br />
+            <select className="p-2" style={{
+              width: "400px"
+            }} id="gender">
+              <option value="volvo">Select Gender</option>
+              <option value="saab">Male</option>
+              <option value="saab">Female</option>
+            </select>
+          </label>
+          <br />
+          <br />
+          <label htmlFor="phone">
+            Phone
             <br />
             <input
-              type="text"
+              type="number"
+              id="phone"
               required
-              placeholder="Full Name"
+              placeholder="Phone"
               style={{
                 width: "400px",
               }}
@@ -107,13 +142,14 @@ const Admission = () => {
           </label>
           <br />
           <br />
-          <label htmlFor="fullName">
-            Enter Full Name
+          <label htmlFor="fatherName">
+            Father Name
             <br />
             <input
               type="text"
               required
-              placeholder="Full Name"
+              id="fatherName"
+              placeholder="Father Name"
               style={{
                 width: "400px",
               }}
@@ -122,34 +158,7 @@ const Admission = () => {
           </label>
           <br />
           <br />
-          <label htmlFor="fullName">
-            Enter Full Name
-            <br />
-            <input
-              type="text"
-              required
-              placeholder="Full Name"
-              style={{
-                width: "400px",
-              }}
-              className="p-2"
-            />
-          </label>
-          <br />
-          <br />
-          <label htmlFor="fullName">
-            Enter Full Name
-            <br />
-            <input
-              type="text"
-              required
-              placeholder="Full Name"
-              style={{
-                width: "400px",
-              }}
-              className="p-2"
-            />
-          </label>
+          <Link to={"/login"}>Aready have an account? Log In</Link>
         </div>
       </form>
     </div>
