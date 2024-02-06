@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { getApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWt9dhRJhl1q9yjLRJKfxfLQ0XwiTR97Y",
@@ -16,3 +18,5 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+const firebaseApp = getApp();
+export const storage = getStorage(firebaseApp, "gs://learningmanagementsystem-cda5d.appspot.com");

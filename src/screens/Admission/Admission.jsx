@@ -1,17 +1,46 @@
-import React from "react";
+import React, { useReducer, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Admission = () => {
+  const email = useRef();
+  const password = useRef();
+  const fullName = useRef();
+  const address = useRef();
+  const phone = useRef();
+  const fatherName = useRef();
+  const selectCourse = useRef();
+  const gender = useRef();
+  const picture = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({
+      Email: email.current.value,
+      Password: password.current.value,
+      Phone: phone.current.value,
+      FatherName: fatherName.current.value,
+      Gender: gender.current.value,
+      Picture: picture.current.value,
+      Address: address.current.value,
+      FullName: fullName.current.value,
+      SelectCourse: selectCourse.current.value,
+    });
+  };
+
   return (
     <div className="d-flex justify-content-around mt-5">
-      <form className="d-flex justify-content-center w-100">
+      <form
+        onSubmit={handleSubmit}
+        className="d-flex justify-content-center w-100"
+      >
         <div className="w-50">
           <label htmlFor="fullName">
-             Full Name
+            Full Name
             <br />
             <input
-            id="fullName"
+              id="fullName"
               type="text"
+              ref={fullName}
               required
               placeholder="Full Name"
               style={{
@@ -27,6 +56,7 @@ const Admission = () => {
             <br />
             <input
               type="email"
+              ref={email}
               id="email"
               required
               placeholder="Email"
@@ -43,6 +73,7 @@ const Admission = () => {
             <br />
             <input
               id="password"
+              ref={password}
               type="password"
               required
               placeholder="Password"
@@ -59,6 +90,7 @@ const Admission = () => {
             <br />
             <input
               type="text"
+              ref={address}
               id="address"
               required
               placeholder="Address"
@@ -74,6 +106,7 @@ const Admission = () => {
             <br />
             <input
               type="file"
+              ref={picture}
               required
               placeholder="Full Name"
               style={{
@@ -100,28 +133,38 @@ const Admission = () => {
           <label htmlFor="course">
             Select Course
             <br />
-            <select className="p-2" style={{
-              width: "400px"
-            }} id="course">
-              <option value="volvo">Select Course</option>
-              <option value="saab">Full Stack Web Development</option>
-              <option value="opel">Mobile App Development</option>
-              <option value="audi">Artificial Intelligence</option>
-              <option value="audi">Graphic Designing</option>
-              <option value="audi">Laptop Repairing</option>
+            <select
+              className="p-2"
+              ref={selectCourse}
+              style={{
+                width: "400px",
+              }}
+              id="course"
+            >
+              <option value="Select Course">Select Course</option>
+              <option value="Full Stack Web Development">Full Stack Web Development</option>
+              <option value="Mobile App Development">Mobile App Development</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="Graphic Designing">Graphic Designing</option>
+              <option value="Laptop Repairing">Laptop Repairing</option>
             </select>
           </label>
           <br />
           <br />
           <label htmlFor="gender">
-              Select Gender
+            Select Gender
             <br />
-            <select className="p-2" style={{
-              width: "400px"
-            }} id="gender">
-              <option value="volvo">Select Gender</option>
-              <option value="saab">Male</option>
-              <option value="saab">Female</option>
+            <select
+              className="p-2"
+              ref={gender}
+              style={{
+                width: "400px",
+              }}
+              id="gender"
+            >
+              <option value="Select Gender">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
           </label>
           <br />
@@ -131,6 +174,7 @@ const Admission = () => {
             <br />
             <input
               type="number"
+              ref={phone}
               id="phone"
               required
               placeholder="Phone"
@@ -147,6 +191,7 @@ const Admission = () => {
             <br />
             <input
               type="text"
+              ref={fatherName}
               required
               id="fatherName"
               placeholder="Father Name"
