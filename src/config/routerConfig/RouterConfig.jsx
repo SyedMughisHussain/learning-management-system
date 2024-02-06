@@ -7,6 +7,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebaseConfig";
 import { auth } from "../firebaseConfig/firebaseConfig";
+import Admission from "../../screens/Admission/Admission";
+import LogIn from "../../screens/login/Login";
+
 
 const RouterConfig = () => {
   const [type, setType] = useState("");
@@ -40,7 +43,9 @@ const RouterConfig = () => {
             />
           }
         />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/adminDashboard/*" element={<AdminDashboard />} />
+        <Route path="/admission" element={<Admission />} />
         <Route path="/studentDashboard" element={<StudentDashboard />} />
       </Routes>
     </BrowserRouter>

@@ -17,9 +17,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import CategoryIcon from '@mui/icons-material/Category';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import CategoryIcon from "@mui/icons-material/Category";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { signOutUser } from "../config/firebaseConfig/firebaseMethods";
 
 const drawerWidth = 240;
 
@@ -68,14 +70,27 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft({screen}) {
+export default function PersistentDrawerLeft({ screen }) {
   const navigate = useNavigate();
+
+  function SignOut() {
+    signOutUser()
+        .then(() => {
+          console.log("User is Signed Out");
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
 
   const changeRoutes = (text) => {
     if (text === "All Courses") {
       navigate("/adminDashboard/allCourses");
     } else if (text === "All Students") {
       navigate("/adminDashboard/allStudents");
+    } else if (text === "Sign Out") {
+      SignOut()
     } else {
       navigate("/adminDashboard");
     }
@@ -135,7 +150,7 @@ export default function PersistentDrawerLeft({screen}) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Add New Course", "All Students", "All Courses"].map(
+          {["Add New Course", "All Students", "All Courses", "Sign Out"].map(
             (text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton
@@ -144,10 +159,15 @@ export default function PersistentDrawerLeft({screen}) {
                   }}
                 >
                   <ListItemIcon>
-                    {index === 0 ? <AddBoxIcon />:
-                     index === 1 ? <AccountCircleIcon /> : 
-                     <CategoryIcon />
-                    }
+                    {index === 0 ? (
+                      <AddBoxIcon />
+                    ) : index === 1 ? (
+                      <AccountCircleIcon />
+                    ) : index === 2 ? (
+                      <CategoryIcon />
+                    ) : (
+                      <LogoutIcon />
+                    )}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>

@@ -17,7 +17,7 @@ const AllCourses = () => {
           ...doc.data(),
           docId: doc.id,
         });
-        setData([...data])
+        setData([...data]);
       });
     };
     getDataFromFirestore();
@@ -38,7 +38,10 @@ const AllCourses = () => {
           {data.map((item, index) => {
             return (
               <div key={index}>
-                <DemoCard courseName={item.CourseName} />
+                <DemoCard
+                  courseName={item.CourseName}
+                  link={`/adminDashboard/allCourses/${data[index].docId}`}
+                />
               </div>
             );
           })}

@@ -12,7 +12,7 @@ import AlertBox from "../../../components/Alert";
 
 const defaultTheme = createTheme();
 
-export default function LogIn() {
+export default function AddCourse() {
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (event) => {

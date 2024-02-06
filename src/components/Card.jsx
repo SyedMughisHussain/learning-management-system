@@ -4,6 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 export default function DemoCard(props) {
   return (
@@ -14,7 +15,7 @@ export default function DemoCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Course Detail</Button>
+        <Button size="small"><Link to={props.link}>Course Detail</Link></Button>
       </CardActions>
     </Card>
   );

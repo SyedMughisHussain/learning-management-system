@@ -7,14 +7,14 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../../config/firebaseConfig/firebaseMethods";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function LogIn() {
-
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -32,18 +32,20 @@ export default function LogIn() {
     // })
 
     loginUser({
-        email: data.get('email'),
-        password: data.get('password'),
-      }).then((res) => {
+      email: data.get("email"),
+      password: data.get("password"),
+    })
+      .then((res) => {
         console.log(res.type);
-        if (res.type === 'student') {
-          navigate('/studentDashboard')
+        if (res.type === "student") {
+          navigate("/studentDashboard");
         } else {
-          navigate('/adminDashboard')
+          navigate("/adminDashboard");
         }
-      }).catch((err) => {
-        console.log(err);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -98,6 +100,11 @@ export default function LogIn() {
             >
               Sign In
             </Button>
+            <Grid container>
+              <Grid item>
+                <Link to={"/admission"}>Don't have an account? Sign Up</Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

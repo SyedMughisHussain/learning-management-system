@@ -18,9 +18,10 @@ function ProtectedRoutes(props) {
       if (user) {
         setLoader(false);
         console.log("user is login");
+        console.log(user.uid);
       } else {
-        setLoader(true);
-        navigate("/");
+        setLoader(false);
+        navigate("/login");
       }
     });
   });
