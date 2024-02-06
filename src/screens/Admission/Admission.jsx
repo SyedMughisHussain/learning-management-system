@@ -64,7 +64,6 @@ const Admission = () => {
             />
           </label>
           <br />
-          <br />
           <label htmlFor="fullName">
             Upload Profile Picture
             <br />
@@ -78,7 +77,6 @@ const Admission = () => {
               className="p-2"
             />
           </label>
-          <br />
           <button
             style={{
               marginTop: "20px",
