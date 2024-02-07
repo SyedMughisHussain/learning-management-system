@@ -46,7 +46,7 @@ const RouterConfig = () => {
         <Route path="/login" element={<LogIn />} />
         <Route path="/adminDashboard/*" element={<AdminDashboard />} />
         <Route path="/admission" element={<Admission />} />
-        <Route path="/studentDashboard" element={<StudentDashboard />} />
+        <Route path="/studentDashboard/*" element={<StudentDashboard />} />
       </Routes>
     </BrowserRouter>
   );

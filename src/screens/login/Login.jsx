@@ -38,6 +38,7 @@ export default function LogIn() {
       .then((res) => {
         console.log(res.type);
         if (res.type === "student") {
+          console.log("Student");
           navigate("/studentDashboard");
         } else {
           navigate("/adminDashboard");

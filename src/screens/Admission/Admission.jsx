@@ -1,7 +1,13 @@
-import React, { useReducer, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { auth, db, storage } from "../../config/firebaseConfig/firebaseConfig";
+import { Link, useNavigate } from "react-router-dom";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Admission = () => {
+  const navigate = useNavigate();
+
   const email = useRef();
   const password = useRef();
   const fullName = useRef();
@@ -10,7 +16,7 @@ const Admission = () => {
   const fatherName = useRef();
   const selectCourse = useRef();
   const gender = useRef();
-  const picture = useRef();
+  const [image, setImage] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,10 +26,47 @@ const Admission = () => {
       Phone: phone.current.value,
       FatherName: fatherName.current.value,
       Gender: gender.current.value,
-      Picture: picture.current.value,
       Address: address.current.value,
       FullName: fullName.current.value,
       SelectCourse: selectCourse.current.value,
+      Picture: image,
+    });
+    const storageRef = ref(storage, email.current.value);
+    uploadBytes(storageRef, image).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then(async (userCredential) => {
+            const user = userCredential.user;
+            try {
+              const docRef = await addDoc(collection(db, "Students"), {
+                fullName: fullName.current.value,
+                email: email.current.value,
+                phone: phone.current.value,
+                fatherName:  fatherName.current.value,
+                gender: gender.current.value,
+                address: address.current.value,
+                course: selectCourse.current.value,
+                type: 'student',
+                uid: user.uid,
+                profileUrl: url,
+              });
+              console.log("Document written with ID: ", docRef.id);
+              navigate("/studentDashboard");
+            } catch (error) {
+              console.log(error);
+            }
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            console.log(errorCode);
+          });
+      });
     });
   };
 
@@ -106,7 +149,10 @@ const Admission = () => {
             <br />
             <input
               type="file"
-              ref={picture}
+              onChange={(event) => {
+                setImage(event.target.files[0]);
+                console.log(event.target.files[0]);
+              }}
               required
               placeholder="Full Name"
               style={{
@@ -142,9 +188,15 @@ const Admission = () => {
               id="course"
             >
               <option value="Select Course">Select Course</option>
-              <option value="Full Stack Web Development">Full Stack Web Development</option>
-              <option value="Mobile App Development">Mobile App Development</option>
-              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="Full Stack Web Development">
+                Full Stack Web Development
+              </option>
+              <option value="Mobile App Development">
+                Mobile App Development
+              </option>
+              <option value="Artificial Intelligence">
+                Artificial Intelligence
+              </option>
               <option value="Graphic Designing">Graphic Designing</option>
               <option value="Laptop Repairing">Laptop Repairing</option>
             </select>

@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
+import StudentDrawer from "../../components/Student Dashboard/StudentDrawer";
+import { Routes, Route} from "react-router-dom";
+import Student from "./Student/Student";
 
 const StudentDashboard = () => {
   return (
-    <div>StudentDashboard</div>
-  )
-}
+    <>
+      <StudentDrawer
+        screen={
+          <Routes>
+            <Route path="/" element={<Student />} />
+          </Routes>
+        }
+      />
+    </>
+  );
+};
 
-export default StudentDashboard
+export default StudentDashboard;
