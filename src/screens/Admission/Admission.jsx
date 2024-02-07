@@ -42,7 +42,7 @@ const Admission = () => {
           .then(async (userCredential) => {
             const user = userCredential.user;
             try {
-              const docRef = await addDoc(collection(db, "Students"), {
+              const docRef = await addDoc(collection(db, "users"), {
                 fullName: fullName.current.value,
                 email: email.current.value,
                 phone: phone.current.value,

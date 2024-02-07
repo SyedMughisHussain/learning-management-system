@@ -9,8 +9,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { loginUser } from "../../config/firebaseConfig/firebaseMethods";
 import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { auth } from "../../config/firebaseConfig/firebaseConfig";
+import { db } from "../../config/firebaseConfig/firebaseConfig";
 
 const defaultTheme = createTheme();
 
@@ -21,31 +24,25 @@ export default function LogIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    //  signUpUser({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    //   type: 'admin',
-    // }).then((res)=>{
-    //   console.log(res);
-    // }).catch((err)=>{
-    //   console.log(err);
-    // })
-
-    loginUser({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
-      .then((res) => {
-        console.log(res.type);
-        if (res.type === "student") {
-          console.log("Student");
-          navigate("/studentDashboard");
-        } else {
-          navigate("/adminDashboard");
-        }
+    signInWithEmailAndPassword(auth, data.get("email"), data.get("password"))
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          if (doc.data().type === "student") {
+            navigate("/studentDashboard");
+          } else {
+            navigate("/adminDashboard");
+          }
+        });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
       });
   };
 
