@@ -9,12 +9,26 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../config/firebaseConfig/firebaseConfig";
+import { useNavigate } from "react-router-dom";
+
 
 const settings = ["Logout"];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const logOutStudent = () => {
+    signOut(auth).then(() => {
+      navigate("/login");
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,7 +50,7 @@ function ResponsiveAppBar(props) {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h10"
             noWrap
             component="a"
             sx={{
@@ -49,7 +63,7 @@ function ResponsiveAppBar(props) {
               textDecoration: "none",
             }}
           >
-            Student Dashboard
+            {props.name}
           </Typography>
 
           <Typography
@@ -67,7 +81,7 @@ function ResponsiveAppBar(props) {
               textDecoration: "none",
             }}
           >
-            Student Dashboard
+            {props.name}
           </Typography>
           <Box sx={{ flexGrow: 0, marginLeft: "1000px" }}>
             <Tooltip title="Open settings">
@@ -92,7 +106,7 @@ function ResponsiveAppBar(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={logOutStudent}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
